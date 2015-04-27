@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>取引一覧</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>取引日</th>
+                <th>金額</th>
+                <th>取引種別ID</th>
+                <th>摘要</th>
+                <th>取引先</th>
+                <th>登録日</th>
+                <th>更新日</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('finance_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ entity.amount }}</td>
+                <td>{{ entity.dealingTypeId }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.client }}</td>
+                <td>{{ entity.createdAt | date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.updatedAt | date('Y-m-d H:i:s') }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('finance_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('finance_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('finance_new') }}">
+                取引追加
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

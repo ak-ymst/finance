@@ -1,6 +1,6 @@
-my_finance:
+finance:
     resource: "@MyFinanceBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /finance
 
 app:
     resource: "@AppBundle/Controller/"

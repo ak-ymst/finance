@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>取引作成</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('finance') }}">
+            取引一覧へ
+        </a>
+    </li>
+</ul>
+{% endblock %}

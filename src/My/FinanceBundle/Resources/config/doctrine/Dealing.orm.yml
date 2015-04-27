@@ -1,0 +1,52 @@
+My\FinanceBundle\Entity\Dealing:
+    type: entity
+    table: dealing
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: true
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        date:
+            type: date
+            nullable: true
+            comment: ''
+        dealingTypeId:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: dealing_type_id
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        client:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+        amount:
+            type: integer
+            nullable: true
+            unsigned: true
+            comment: ''
+            column: amount
+        createdAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: updated_at
+    lifecycleCallbacks: {  }

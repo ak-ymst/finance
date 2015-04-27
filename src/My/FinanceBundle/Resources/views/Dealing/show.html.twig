@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Dealing</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>取引日</th>
+                <td>{{ entity.date|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>金額</th>
+                <td>{{ entity.amount }}</td>
+            </tr>
+            <tr>
+                <th>種別</th>
+                <td>{{ entity.dealingTypeId }}</td>
+            </tr>
+            <tr>
+                <th>摘要</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>取引先</th>
+                <td>{{ entity.client }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('finance') }}">
+            取引一覧へ
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('finance_edit', { 'id': entity.id }) }}">
+            修正
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

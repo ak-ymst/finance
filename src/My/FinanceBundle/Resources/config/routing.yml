@@ -1,3 +1,29 @@
-my_finance_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MyFinanceBundle:Default:index }
+finance:
+    pattern: /
+    defaults: { _controller: MyFinanceBundle:Dealing:index }
+
+finance_show:
+    pattern: /show/{id}
+    defaults: { _controller: MyFinanceBundle:Dealing:show }
+
+finance_new:
+    pattern: /new
+    defaults: { _controller: MyFinanceBundle:Dealing:new }
+
+finance_create:
+    pattern: /create
+    defaults: { _controller: MyFinanceBundle:Dealing:create	 }
+
+finance_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: MyFinanceBundle:Dealing:edit }
+    
+finance_update:
+    pattern: /update/{id}
+    defaults: { _controller: MyFinanceBundle:Dealing:update }
+    
+finance_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: MyFinanceBundle:Dealing:delete }
+
+    
