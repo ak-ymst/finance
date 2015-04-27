@@ -1,3 +1,4 @@
+
 {
     "name": "yamashitaakihito/my_project",
     "license": "proprietary",
@@ -14,6 +15,7 @@
         "doctrine/orm": "~2.2,>=2.2.3,<2.5",
         "doctrine/dbal": "<2.5",
         "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "twig/extensions": "~1.0",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
@@ -25,8 +27,7 @@
 	"doctrine/doctrine-migrations-bundle": "2.1.*@dev"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3",
-        "phpunit/phpnit": "4.0.*"
+        "sensio/generator-bundle": "~2.3"
     },
     "scripts": {
         "post-root-package-install": [
