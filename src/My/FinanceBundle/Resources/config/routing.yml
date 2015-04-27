@@ -1,0 +1,3 @@
+my_finance_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MyFinanceBundle:Default:index }
