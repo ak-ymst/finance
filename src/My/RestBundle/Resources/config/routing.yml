@@ -1,0 +1,14 @@
+rest_dealing_list:
+    path:     /dealing
+    defaults: { _controller: MyRestBundle:Default:dealingList }
+
+rest_dealing_show:
+    path:     /dealing/{id}
+    defaults: { _controller: MyRestBundle:Default:dealingShow }
+    
+rest_dealing_type_list:
+    path:     /dealing_type
+    defaults: { _controller: MyRestBundle:Default:dealingTypeList }
+
+
+    

@@ -1,0 +1,11 @@
+Hello dealing list
+
+{% for dealing in dealings  %}
+<div>
+  <span>{{ dealing.id }}</span>
+  <span>{{ dealing.dealingTypeId  }}</span>
+  <span>{{ dealing.date | date('Y-m-d') }}</span>
+  <span>{{ dealing.amount  }}</span>
+  <span>{{ dealing.description  }}</span>
+</div>
+{% endfor %}

@@ -1,6 +1,14 @@
+my_rest:
+    resource: "@MyRestBundle/Resources/config/routing.yml"
+    prefix:   /
+
 finance:
     resource: "@MyFinanceBundle/Resources/config/routing.yml"
     prefix:   /finance
+
+rest:
+    resource: "@MyRestBundle/Resources/config/routing.yml"
+    prefix:   /rest
 
 app:
     resource: "@AppBundle/Controller/"
