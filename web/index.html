@@ -132,36 +132,34 @@
   </script>
   
   <script type="text/ng-template" id="sheet-tmpl">
-    <div ng-show="id">
-    <h1>帳票詳細 #{{ id }}</h1>
-    <p>作成日時: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
+    <div ng-show="dealing">
+    <h1>帳票詳細 #{{ dealing.id }}</h1>
+    <p>作成日時: {{ dealing.created_at | date:'yyyy/MM/dd HH:mm' }}</p>
     <table class="table">
-      <colgroup span="4" class="col-md"></colgroup>
-      <thead>
+      <colgroup span="2" class="col-md"></colgroup>
         <tr>
-          <th>商品名</th>
-          <th>単価</th>
-          <th>個数</th>
-          <th>小計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="orderLine in lines">
-          <td>{{ orderLine.productName }}</td>
-          <td>{{ orderLine.unitPrice | number }}</td>
-          <td>{{ orderLine.count | number }}</td>
-          <td>{{ getSubtotal(orderLine) | number }}</td>
-        </tr>	
-      </tbody>
-      <tfoot>
+          <th>取引日</th>
+          <td>{{ dealing.date | date: 'yyyy/MM/dd' }}</td>
+	</tr>
         <tr>
-          <td colspan="3">合計:</td>
-          <td>{{ getTotalAmount(lines) | number }}</td>
-        </tr>
-      </tfoot>
+          <th>科目ID</th>
+          <td>{{ dealing.dealing_type_id }}</td>
+	</tr>
+        <tr>
+          <th>金額</th>
+          <td>{{ dealing.amount }}</td>
+	</tr>
+        <tr>
+          <th>取引先</th>
+          <td>{{ dealing.client }}</td>
+	</tr>
+        <tr>
+          <th>摘要</th>
+          <td>{{ dealing.description }}</td>
+	</tr>
     </table>
     </div>
-    <div ng-hide="id">
+    <div ng-hide="dealing">
       存在しない帳票を参照しています。 <a href="#/new">新しい帳票を作る</a>
     </div>
   </script>

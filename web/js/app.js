@@ -52,17 +52,17 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     $scope.toPickerOpen = !$scope.toPickerOpen;
   };
 
-  $scope.successFunction  = function(data, status, header, config) {
+  $scope.successCallback  = function(data, status, header, config) {
       $scope.list = angular.fromJson(data.dealings);
   }
     
   $scope.$watchCollection(function() {
     return [$scope.from, $scope.to];
   }, function() {
-    sheets.search($scope.from, $scope.to, $scope.successFunction);
+    sheets.search($scope.from, $scope.to, $scope.successCallback);
   });
 
-  sheets.search($scope.from, $scope.to, $scope.successFunction);
+  sheets.search($scope.from, $scope.to, $scope.successCallback);
     
 }])
 .controller('CreationController', ['$scope', '$location', 'sheets', 'counting', function CreationController($scope, $location, sheets, counting) {
@@ -109,16 +109,22 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     
 }])
 .controller('SheetController', ['$scope', '$routeParams', 'sheets', 'counting', function SheetController($scope, $params, sheets, counting) {
-    var sheet = sheets.get($params.id);
-
-    angular.extend($scope, sheet);
-    angular.extend($scope, counting);
+  $scope.dealing = {};
+    
+  $scope.successCallback  = function(data, status, header, config) {
+      $scope.dealing = angular.fromJson(data.dealing);
+  }
+    
+  $scope.dealing = sheets.get($params.id, $scope.successCallback);
+    
 }])
 .service('sheets', ['$http', '$filter', function($http, $filter) {
   this.list = [];
 
-  this.search = function(from, to, successFunction) {
-    var url = 'http://finance.localhost/app_dev.php/rest/dealing/from/';
+  var API_BASE = 'http://finance.localhost/app_dev.php/rest/dealing/';
+
+  this.search = function(from, to, successCallback) {
+    var url = API_BASE + 'from/';
     url += $filter('date')(from, 'yyyyMMdd');
     url += '/to/';
     url += $filter('date')(to, 'yyyyMMdd');
@@ -127,7 +133,7 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
 	url: url,
 	method: 'GET'
     })
-    .success(successFunction)
+    .success(successCallback)
     .error(function(data, status, header,config){
 	console.debug('http error');
     });
@@ -141,20 +147,17 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     });
   }
 
-  this.get = function(id) {
-    var list = this.list;
-    var index = list.length;
-    var sheet;
+  this.get = function(id, successCallback) {
+    var url = API_BASE + id;
 
-    while(index--) {
-      sheet = list[index];
-	
-      if (sheet.id == id) {
-	return sheet;  
-      }
-    }
-
-    return null;
+    $http({
+	url: url,
+	method: 'GET'
+    })
+    .success(successCallback)
+    .error(function(data, status, header,config){
+	console.debug('http error');
+    });
   }
 }])
 ;
