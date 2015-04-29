@@ -29,6 +29,7 @@ class DealingRepository extends EntityRepository {
                       ->where('p.date >= :from ')
                       ->andWhere('p.date <= :to ')
                       ->setParameters($params)
+                      ->orderBy('p.date')
                       ->getQuery();
 
         return $query->getResult();

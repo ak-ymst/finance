@@ -72,60 +72,67 @@
     <h1>帳票作成</h1>
     <form name="sheetForm" ng-submit="save()">
       <table class="table">
-        <colgroup></colgroup>
-        <colgroup span="3" class="col-sm"></colgroup>
-        <colgroup></colgroup>
-        <thead>
+        <colgroup span="2" class="col-md"></colgroup>
           <tr>
-            <th>商品名</th>
-            <th>単価</th>
-            <th>個数</th>
-            <th>小計</th>
-            <th></th>
+            <th>取引日</th>
+            <td>
+              <input type="text"
+                     class="form-control"
+                     ng-model="dealing.date"
+                     datepicker-popup
+        	     format="YYYY-mm-DD"
+                     is-open="datePickerOpen">
+              <div class="input-group-addon" ng-click="toggleDatePicker($event)">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </div>
+	    </td>
           </tr>
-        </thead>
-        <tbody>
-	  <tr ng-repeat="orderLine in lines">
+          <tr>
+            <th>科目ID</th>
+            <td>
+	      <input class ="form-control"
+	             type="number"
+	             ng-model="dealing.dealing_type_id"
+		     required min="0" ng-pattern="integer"
+       	      >
+	    </td>
+          </tr>
+          <tr>
+            <th>金額</th>
+            <td>
+	      <input class ="form-control"
+	             type="number"
+	             ng-model="dealing.amount"
+		     required min="0" ng-pattern="integer"
+       	      >
+	    </td>
+          </tr>
+          <tr>
+            <th>取引先</th>
             <td>
 	      <input class ="form-control"
 	             type="text"
-	             ng-model="orderLine.productName"
+	             ng-model="dealing.client"
 		     required
        	      >
-	    </td>
-            <td>
-	      <input class ="form-control"
-	             type="number"
-	             ng-model="orderLine.unitPrice"
-		     required min="0" ng-pattern="integer"
-       	      >
-	    </td>
-            <td>
-	      <input class ="form-control"
-	             type="number"
-	             ng-model="orderLine.count"
-		     required min="0" ng-pattern="integer"
-       	      >
-	    </td>
-            <td>{{ getSubtotal(orderLine) | number  }}</td>
-            <td><button type="button" ng-disabled="isDisabled()" ng-click="removeLine(orderLine)">削除</button></td>
+            </td>
           </tr>
-        </tbody>
-        <tfoot>
           <tr>
-            <td colspan="3">合計:</td>
-            <td colspan="2">{{ getTotalAmount(lines) | number }}</td>
+            <th>摘要</th>
+            <td>
+	      <input class ="form-control"
+	             type="text"
+	             ng-model="dealing.description"
+       	      >
+            </td>
           </tr>
-        </tfoot>
-      </table>
+        </table>
       <div class="alert alert-danger" ng-show="sheetForm.$invalid">
         <span ng-show="sheetForm.$error.required">空欄が存在しています。</span>
         <span ng-show="sheetForm.$error.min">単価、個数の最小値は 0 です。</span>
         <span ng-show="sheetForm.$error.pattern">単価、個数は整数で指定してください。</span>
       </div>
       <div>
-        <button type="button" class="btn btn-primary" ng-click="addLine()">明細行を追加</button>
-        <button type="button" class="btn btn-danger" ng-click="initialize()">帳票を初期化</button>
         <button type="submit" ng-disabled="sheetForm.$invalid" class="btn btn-success"">帳票を保存</button>
       </div>
     </form>

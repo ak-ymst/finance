@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use My\FinanceBundle\Entity\Dealing;
+use \DateTime;
 
 class DefaultController extends Controller
 {
@@ -68,4 +69,30 @@ class DefaultController extends Controller
         return new JsonResponse(array('dealingTypes'=>$dealingTypes));
     }
     
+    /**
+     * regist Dealing entity 
+     *
+     */
+    public function dealingRegistAction(Request $request)
+    {
+        $logger = $this->get('logger');
+        $logger->info('regist');
+
+        $dealing = $request->request->get('dealing');
+
+        $entity = new Dealing();
+        $entity->setDate(new DateTime($dealing['date']));
+        $entity->setAmount($dealing['amount']);
+        $entity->setDealingTypeId($dealing['dealing_type_id']);
+        $entity->setClient($dealing['client']);
+        if (isset($dealing['description'])) {
+            $entity->setDescription($dealing['description']);
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($entity);
+        $em->flush();
+        
+        return new JsonResponse(array('id'=>$entity->getId()));
+    }
 }

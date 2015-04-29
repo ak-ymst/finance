@@ -5,6 +5,10 @@ rest_dealing_list:
         from: \d{8}$
         to: \d{8}$
 
+rest_dealing_regist:
+    path:     /dealing/regist
+    defaults: { _controller: MyRestBundle:Default:dealingRegist }
+    
 rest_dealing_show:
     path:     /dealing/{id}
     defaults: { _controller: MyRestBundle:Default:dealingShow }

@@ -67,46 +67,31 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
 }])
 .controller('CreationController', ['$scope', '$location', 'sheets', 'counting', function CreationController($scope, $location, sheets, counting) {
   // 新しい明細行を作成する
-  function createOrderLine() {
+  function createDealing() {
     return {
-      productName: '',
-      unitPrice: 0,
-      count: 0
+      date: new Date(),
+      dealing_type_id: 1,
+      client: 'Client',
+      description: '',
+      amount: 100
     };
   }
 
-  $scope.lines = [createOrderLine()]; // 明細行リスト
+  $scope.datePickerOpen = false;
+  $scope.toggleDatePicker = function($event) {
+    $event.stopPropagation();
+
+    $scope.datePickerOpen = !$scope.datePickerOpen;
+  };
+    
+  $scope.dealing = createDealing();
+    
   $scope.integer = /^[0-9]+$/;
 
-  $scope.isDisabled = function() {
-    return $scope.lines.length < 2;  
-  }
-
-  $scope.addLine = function() {
-    $scope.lines.push(createOrderLine());
-  }
-
-  $scope.initialize = function() {
-    $scope.lines = [createOrderLine()];
-  }
 
   $scope.save = function() {
-    sheets.add($scope.lines);
-
-    $location.path('/');
+    sheets.regist($scope.dealing, function(){ $location.path('/');});
   }
-
-  $scope.removeLine = function(target) {
-    var lines = $scope.lines;
-    var index = lines.indexOf(target);
-
-    if (index != -1) {
-      lines.splice(index, 1);
-    }
-  }
-
-  angular.extend($scope, counting);
-    
 }])
 .controller('SheetController', ['$scope', '$routeParams', 'sheets', 'counting', function SheetController($scope, $params, sheets, counting) {
   $scope.dealing = {};
@@ -139,14 +124,6 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     });
   }
 
-  this.add = function(lines) {
-    this.list.push({
-      id: String(this.list.length + 1)
-      , createdAt: Date.now()
-      , lines: lines
-    });
-  }
-
   this.get = function(id, successCallback) {
     var url = API_BASE + id;
 
@@ -158,6 +135,18 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     .error(function(data, status, header,config){
 	console.debug('http error');
     });
+  }
+
+  this.regist = function(dealing, successCallback) {
+    var url = API_BASE + 'regist';
+    dealing.date = $filter('date')(dealing.date, 'yyyy-MM-dd');
+    var postData = {'dealing': dealing};
+
+    $http.post(url, postData)
+         .success(successCallback)
+         .error(function(data, status, header,config){
+           console.debug('http error');
+          });
   }
 }])
 ;
