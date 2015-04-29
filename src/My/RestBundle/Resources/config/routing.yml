@@ -1,6 +1,9 @@
 rest_dealing_list:
-    path:     /dealing
+    path:     /dealing/from/{from}/to/{to}
     defaults: { _controller: MyRestBundle:Default:dealingList }
+    requirements:
+        from: \d{8}$
+        to: \d{8}$
 
 rest_dealing_show:
     path:     /dealing/{id}

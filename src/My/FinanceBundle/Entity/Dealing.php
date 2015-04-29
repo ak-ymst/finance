@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Dealing
  *
  * @ORM\Table(name="dealing")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="My\FinanceBundle\Entity\Repository\DealingRepository")
  */
 class Dealing
 {
@@ -229,7 +229,7 @@ class Dealing
      * @param \datetime $updatedAt
      * @return Dealing
      */
-    public function setupdatedAt($updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -245,5 +245,4 @@ class Dealing
     {
         return $this->updatedAt;
     }
-
 }

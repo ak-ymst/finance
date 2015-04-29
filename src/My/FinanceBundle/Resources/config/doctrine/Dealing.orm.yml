@@ -1,6 +1,8 @@
 My\FinanceBundle\Entity\Dealing:
     type: entity
     table: dealing
+    repositoryClass: My\FinanceBundle\Entity\Repository\DealingRepository
+    
     id:
         id:
             type: integer

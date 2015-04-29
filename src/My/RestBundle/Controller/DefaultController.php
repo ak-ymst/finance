@@ -24,15 +24,15 @@ class DefaultController extends Controller
      * Lists all Dealing entities as JSON
      *
      */
-    public function dealingListAction()
+    public function dealingListAction($from, $to)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MyFinanceBundle:Dealing')->findAll();
+        $entities = $em->getRepository('MyFinanceBundle:Dealing')->findByDateBetween(date('Y-m-d', strtotime($from)), date('Y-m-d H:i:s', strtotime($to)));
 
         $serializer = $this->container->get('serializer');
         $dealings = $serializer->serialize($entities, 'json');
-
+        
         return new JsonResponse(array('dealings'=>$dealings));
     }
     
