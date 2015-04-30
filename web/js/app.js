@@ -77,6 +77,11 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
     };
   }
 
+  $scope.dealingTypes = [];
+  sheets.loadDealingTypes(function(data,status, header, config) {
+     $scope.dealingTypes = angular.fromJson(data.dealingTypes);
+  });
+
   $scope.datePickerOpen = false;
   $scope.toggleDatePicker = function($event) {
     $event.stopPropagation();
@@ -106,10 +111,10 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
 .service('sheets', ['$http', '$filter', function($http, $filter) {
   this.list = [];
 
-  var API_BASE = 'http://finance.localhost/app_dev.php/rest/dealing/';
+  var API_BASE = 'http://finance.localhost/app_dev.php/rest/';
 
   this.search = function(from, to, successCallback) {
-    var url = API_BASE + 'from/';
+    var url = API_BASE + 'dealing/from/';
     url += $filter('date')(from, 'yyyyMMdd');
     url += '/to/';
     url += $filter('date')(to, 'yyyyMMdd');
@@ -125,7 +130,7 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
   }
 
   this.get = function(id, successCallback) {
-    var url = API_BASE + id;
+    var url = API_BASE + 'dealing/' + id;
 
     $http({
 	url: url,
@@ -138,11 +143,22 @@ angular.module('App', ['ngRoute', 'ui.bootstrap'])
   }
 
   this.regist = function(dealing, successCallback) {
-    var url = API_BASE + 'regist';
+    var url = API_BASE + 'dealing/regist';
+      
     dealing.date = $filter('date')(dealing.date, 'yyyy-MM-dd');
     var postData = {'dealing': dealing};
 
     $http.post(url, postData)
+         .success(successCallback)
+         .error(function(data, status, header,config){
+           console.debug('http error');
+          });
+  }
+
+  this.loadDealingTypes = function(successCallback) {
+    var url = API_BASE + 'dealing_type';
+      
+    $http.get(url)
          .success(successCallback)
          .error(function(data, status, header,config){
            console.debug('http error');

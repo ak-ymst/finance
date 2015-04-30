@@ -88,13 +88,13 @@
 	    </td>
           </tr>
           <tr>
-            <th>科目ID</th>
+            <th>科目</th>
             <td>
-	      <input class ="form-control"
-	             type="number"
-	             ng-model="dealing.dealing_type_id"
-		     required min="0" ng-pattern="integer"
-       	      >
+	      <select ng-model="dealing.dealing_type_id"
+		      ng-options="type.id as type.name for type in dealingTypes"
+		      required
+		      >
+	      </select>
 	    </td>
           </tr>
           <tr>
