@@ -17,5 +17,9 @@ rest_dealing_type_list:
     path:     /dealing_type
     defaults: { _controller: MyRestBundle:Default:dealingTypeList }
 
+rest_test:
+    path:     /test
+    defaults: { _controller: MyRestBundle:Default:index }
+    
 
     

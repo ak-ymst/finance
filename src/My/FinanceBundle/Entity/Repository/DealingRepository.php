@@ -26,6 +26,7 @@ class DealingRepository extends EntityRepository {
         $params['to'] = $to;
         
         $query = $this->createQueryBuilder('p')
+                      ->innerjoin('My\FinanceBundle\Entity\DealingType', 'd', 'WITH', 'p.dealingTypeId = d.id')
                       ->where('p.date >= :from ')
                       ->andWhere('p.date <= :to ')
                       ->setParameters($params)

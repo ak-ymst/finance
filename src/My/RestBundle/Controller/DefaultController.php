@@ -15,8 +15,19 @@ use \DateTime;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('MyFinanceBundle:Dealing')->findByDateBetween('2015-04-28', '2015-04-30');
+
+        $serializer = $this->container->get('serializer');
+        $dealings = $serializer->serialize($entities, 'json');
+
+        var_dump($dealings);die;
+
+        
+        
         return $this->render('MyRestBundle:Default:index.html.twig', array('name' => $name));
     }
 
@@ -78,18 +89,21 @@ class DefaultController extends Controller
         $logger = $this->get('logger');
         $logger->info('regist');
 
+        $em = $this->getDoctrine()->getManager();
+        
         $dealing = $request->request->get('dealing');
 
         $entity = new Dealing();
         $entity->setDate(new DateTime($dealing['date']));
         $entity->setAmount($dealing['amount']);
-        $entity->setDealingTypeId($dealing['dealing_type_id']);
         $entity->setClient($dealing['client']);
         if (isset($dealing['description'])) {
             $entity->setDescription($dealing['description']);
         }
 
-        $em = $this->getDoctrine()->getManager();
+        $type = $em->getRepository('MyFinanceBundle:DealingType')->find($dealing['dealing_type_id']);
+        $entity->setDealingType($type);
+        
         $em->persist($entity);
         $em->flush();
         

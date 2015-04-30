@@ -58,7 +58,7 @@
       <li ng-repeat="sheet in list">
         #{{ sheet.id }}
         {{ sheet.date | date:'yyyy/MM/dd' }}
-        {{ sheet.dealing_type_id }}
+        {{ sheet.dealing_type.name }}
         {{ sheet.amount }}
         <a ng-href="#/sheet/{{ sheet.id }}">詳細を確認する</a>
       </li>
@@ -149,8 +149,8 @@
           <td>{{ dealing.date | date: 'yyyy/MM/dd' }}</td>
 	</tr>
         <tr>
-          <th>科目ID</th>
-          <td>{{ dealing.dealing_type_id }}</td>
+          <th>科目</th>
+          <td>{{ dealing.dealing_type.name }}</td>
 	</tr>
         <tr>
           <th>金額</th>

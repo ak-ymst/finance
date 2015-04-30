@@ -2,6 +2,13 @@ My\FinanceBundle\Entity\Dealing:
     type: entity
     table: dealing
     repositoryClass: My\FinanceBundle\Entity\Repository\DealingRepository
+
+    manyToOne:
+      dealingType:
+        targetEntity: My\FinanceBundle\Entity\DealingType
+        joinColumn:
+            name: dealing_type_id
+            referenceColumnName: id
     
     id:
         id:

@@ -3,6 +3,7 @@
 namespace My\FinanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use My\FinanceBundle\Entity\DealingType;
 
 /**
  * Dealing
@@ -244,5 +245,33 @@ class Dealing
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+    /**
+     * @var \My\FinanceBundle\Entity\DealingType
+     */
+    private $dealingType;
+
+
+    /**
+     * Set dealingType
+     *
+     * @param \My\FinanceBundle\Entity\DealingType $dealingType
+     * @return Dealing
+     */
+    public function setDealingType(\My\FinanceBundle\Entity\DealingType $dealingType = null)
+    {
+        $this->dealingType = $dealingType;
+
+        return $this;
+    }
+
+    /**
+     * Get dealingType
+     *
+     * @return \My\FinanceBundle\Entity\DealingType 
+     */
+    public function getDealingType()
+    {
+        return $this->dealingType;
     }
 }
