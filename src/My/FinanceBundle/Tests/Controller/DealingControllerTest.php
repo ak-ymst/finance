@@ -52,4 +52,9 @@ class DealingControllerTest extends WebTestCase
     }
 
     */
+
+    public function testDummy() {
+        $this->assertTrue(true, 'dummy test');
+    }
+    
 }

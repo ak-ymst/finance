@@ -9,7 +9,7 @@ use My\FinanceBundle\Entity\DealingType;
 use My\FinanceBundle\Entity\Dealing;
 use \DateTime;
 
-class LoadDealingType implements FixtureInterface {
+class LoadDealingTypeData implements FixtureInterface {
 
     /**
      * {@inheritDoc}
@@ -165,6 +165,7 @@ class LoadDealingType implements FixtureInterface {
 
         $manager->flush();
     }
+
 }
 
 
