@@ -28,7 +28,7 @@ class Dealing
      * @ORM\Column(name="date", type="date", nullable=true)
      */
     private $date;
-
+    
     /**
      * @var integer
      *

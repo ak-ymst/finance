@@ -30,6 +30,19 @@ class DealingType
 
 
 
+    
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return DealingType
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     /**
      * Get id
      *
